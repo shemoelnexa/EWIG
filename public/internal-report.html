@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EWIG Website Redesign — Project Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --black: #0b1012;
+    --cream: #f3f0ec;
+    --grey: #212325;
+    --accent: #cee002;
+    --text: #1a1a2e;
+    --muted: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A3 landscape;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    background: white;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ─── Cover Page ─── */
+  .cover {
+    height: 100vh;
+    background: var(--black);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    position: relative;
+    page-break-after: always;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    border: 1px solid rgba(206,224,2,0.08);
+    border-radius: 50%;
+  }
+
+  .cover-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px;
+  }
+
+  .cover h1 {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .cover h2 {
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 60px;
+  }
+
+  .cover-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    gap: 40px;
+  }
+
+  .cover-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ─── Section Pages ─── */
+  .page {
+    padding: 60px 80px;
+    page-break-after: always;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-num::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+  }
+
+  h3 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    max-width: 900px;
+  }
+
+  .lead {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--text);
+    max-width: 900px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 32px;
+    font-size: 13px;
+  }
+
+  th {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--black);
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    color: var(--muted);
+    vertical-align: top;
+  }
+
+  tr:hover td {
+    background: rgba(206,224,2,0.04);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: rgba(206,224,2,0.12);
+    color: #6b7800;
+  }
+
+  .tag-dark {
+    background: var(--black);
+    color: white;
+  }
+
+  /* ─── Stats Grid ─── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin: 24px 0 40px;
+  }
+
+  .stat-card {
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .stat-card .num {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-card .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ─── Timeline ─── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 20px 0 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .timeline-item .time {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .timeline-item .title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .timeline-item .desc {
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 500px;
+  }
+
+  /* ─── Component List ─── */
+  .component-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0 32px;
+  }
+
+  .component-card {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .component-card .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .component-card .desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ─── Accent bar ─── */
+  .accent-bar {
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  /* ─── Color swatch ─── */
+  .color-grid {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0 32px;
+    flex-wrap: wrap;
+  }
+
+  .color-swatch {
+    width: 80px;
+    text-align: center;
+  }
+
+  .color-swatch .swatch {
+    width: 80px;
+    height: 56px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .color-swatch .hex {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Print */
+  @media print {
+    .cover { height: auto; min-height: 100vh; }
+    .page { min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ COVER ═══════════ -->
+<div class="cover">
+  <div class="cover-label">Project Report</div>
+  <h1>EWIG Website<br>Redesign</h1>
+  <h2>East & West International Group</h2>
+  <div class="cover-meta">
+    <span>Date: March 30, 2026</span>
+    <span>Version: 1.0</span>
+    <span>Platform: Next.js 16</span>
+  </div>
+  <div class="cover-footer">Confidential &mdash; East & West International Group</div>
+</div>
+
+<!-- ═══════════ 01 — EXECUTIVE SUMMARY ═══════════ -->
+<div class="page">
+  <div class="section-num">01 &mdash; Executive Summary</div>
+  <h3>Project Overview</h3>
+  <div class="accent-bar"></div>
+  <p class="lead">
+    A complete redesign of the East & West International Group (EWIG) website homepage,
+    transforming it from a dated, content-heavy layout into a modern, immersive, award-worthy
+    digital experience inspired by fluid.glass — featuring cinematic animations, editorial
+    typography, and a premium dark/cream aesthetic.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num">19</div>
+      <div class="label">Components Built</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">13</div>
+      <div class="label">Page Sections</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">25+</div>
+      <div class="label">Agents Deployed</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="label">Major Iterations</div>
+    </div>
+  </div>
+
+  <h4>Client Details</h4>
+  <table>
+    <tr><td style="width:180px;font-weight:600;color:var(--text)">Company</td><td>East & West International Group (EWIG)</td></tr>
+    <tr><td style="font-weight:600;color:var(--text)">Founded</td><td>1993</td></tr>
+    <tr><td style="font-weight:600;color:var(--text)">Industry</td><td>Real Estate — Property Management, Leasing, Maintenance</td></tr>
+    <tr><td style="font-weight:600;color:var(--text)">Locations</td><td>Abu Dhabi (HQ), Dubai, Al Ain, Sharjah</td></tr>
+    <tr><td style="font-weight:600;color:var(--text)">Current Website</td><td>www.eastandwest.ae</td></tr>
+    <tr><td style="font-weight:600;color:var(--text)">Repository</td><td>Private Git Repository</td></tr>
+  </table>
+
+  <h4>Scope of Delivery</h4>
+  <p>Homepage only — designed as a fully functional site presentation for client approval before proceeding with inner pages. Includes full navigation, footer, and all global components.</p>
+</div>
+
+<!-- ═══════════ 02 — DOCUMENT ANALYSIS ═══════════ -->
+<div class="page">
+  <div class="section-num">02 &mdash; Input Documents Analysis</div>
+  <h3>Source Materials</h3>
+  <div class="accent-bar"></div>
+
+  <h4>Document 1: RFQ (Request for Quotation)</h4>
+  <p>A 2-page PDF outlining 22 modules for the complete website build:</p>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Module</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Global Components</td><td>Header, mega menu, footer, announcement strip, SEO controller</td></tr>
+      <tr><td>2</td><td>Homepage</td><td>Hero with property search, managed properties slider</td></tr>
+      <tr><td>3</td><td>Property Search</td><td>Residential/commercial filters, price, location, amenities</td></tr>
+      <tr><td>4</td><td>Search Results</td><td>List view + map view (Google/Mapbox)</td></tr>
+      <tr><td>5</td><td>Property Listing</td><td>Gallery, specs, amenities, agent contact, SEO markup</td></tr>
+      <tr><td>6</td><td>Managed Properties</td><td>Portfolio page, individual pages, availability slider</td></tr>
+      <tr><td>7</td><td>About Page</td><td>Vision, ethos, values, mission, leadership, metrics</td></tr>
+      <tr><td>8</td><td>Tenant Benefits</td><td>Dynamic partner offers (F&B, services, hotels)</td></tr>
+      <tr><td>9</td><td>Newsletter System</td><td>SendGrid integration, on-demand push</td></tr>
+      <tr><td>10</td><td>ESG Page</td><td>Sustainability, net zero, CSR, governance</td></tr>
+      <tr><td>11-14</td><td>Legal, Careers, Quality, Maintenance</td><td>Various content and functional pages</td></tr>
+      <tr><td>15-16</td><td>Blog/News, Contact</td><td>CMS-driven content, contact forms with reCAPTCHA</td></tr>
+      <tr><td>17-22</td><td>Admin Dashboard</td><td>Role management, property CMS, blog CMS, analytics</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Document 2: Scope of Work (SOW)</h4>
+  <p>Summary confirming bilingual (AR/EN) custom development with full SEO controls, advanced property search, admin dashboard with role-based access, and third-party integrations (SendGrid, Google Maps, reCAPTCHA, GTM, Meta Pixel).</p>
+
+  <h4>Current Website Analysis</h4>
+  <p>The existing eastandwest.ae site was analyzed in-depth via web fetching. Key findings: dated visual design, content-heavy layout, no animations, basic grid property showcase, lime green (#cee002) accent color, 20+ property listings across 4 emirates, ISO 9001:2015 certified, World Realty Congress Silver Award 2024, R.E.S.P.E.C.T. core values framework.</p>
+</div>
+
+<!-- ═══════════ 03 — DESIGN DIRECTION ═══════════ -->
+<div class="page">
+  <div class="section-num">03 &mdash; Design Direction</div>
+  <h3>Visual Identity & Aesthetic</h3>
+  <div class="accent-bar"></div>
+
+  <p class="lead">
+    The design follows the fluid.glass aesthetic — a premium, editorial approach with dark/cream
+    palette, cinematic imagery, generous whitespace, and sophisticated motion design.
+  </p>
+
+  <h4>Design Reference</h4>
+  <p>Primary inspiration: <strong>fluid.glass</strong> — an Awwwards-recognized architectural glazing website. Key patterns adopted: bottom-fixed glassmorphic navigation, 3D cube preloader, full-viewport sections, word-by-word text reveals, clip-path image animations, and editorial grid layouts.</p>
+
+  <h4>Color Palette</h4>
+  <div class="color-grid">
+    <div class="color-swatch">
+      <div class="swatch" style="background:#0b1012"></div>
+      <div class="hex">#0b1012<br>Black</div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#f3f0ec"></div>
+      <div class="hex">#f3f0ec<br>Cream</div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#212325"></div>
+      <div class="hex">#212325<br>Grey</div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#cee002"></div>
+      <div class="hex">#cee002<br>Accent</div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#d4cec6"></div>
+      <div class="hex">#d4cec6<br>Taupe</div>
+    </div>
+  </div>
+
+  <h4>Typography</h4>
+  <table>
+    <thead><tr><th>Usage</th><th>Font</th><th>Weights</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Headings & Body</td><td>Outfit</td><td>200–700</td><td>Geometric sans-serif, closest open-source match to Aeonik Pro</td></tr>
+      <tr><td>Labels & UI</td><td>Space Mono</td><td>400, 700</td><td>Monospace for labels, buttons, navigation text</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Animation System</h4>
+  <table>
+    <thead><tr><th>Technique</th><th>Usage</th><th>Easing</th></tr></thead>
+    <tbody>
+      <tr><td>Word-by-word reveal</td><td>All major headings</td><td>power4.out, stagger 0.03–0.08</td></tr>
+      <tr><td>Clip-path reveal</td><td>Images, hero background</td><td>power4.inOut, 1.2–1.8s</td></tr>
+      <tr><td>Parallax scroll</td><td>Hero bg, showcase bg, about image</td><td>Linear scrub</td></tr>
+      <tr><td>Fade + slide</td><td>Labels, body text, buttons</td><td>power3.out, 0.8–1s</td></tr>
+      <tr><td>Counter animation</td><td>Stats section</td><td>power2.out, 2s</td></tr>
+      <tr><td>CSS keyframes</td><td>Preloader cube, marquee, graphic elements</td><td>Infinite loops</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ 04 — SITEMAP ═══════════ -->
+<div class="page">
+  <div class="section-num">04 &mdash; Homepage Sitemap</div>
+  <h3>Section Architecture</h3>
+  <div class="accent-bar"></div>
+
+  <table>
+    <thead><tr><th>#</th><th>Section</th><th>Component</th><th>Background</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>—</td><td>Preloader</td><td>Preloader.tsx</td><td>Cream</td><td>3D rotating cube, "EAST & WEST" label, dark overlay transition</td></tr>
+      <tr><td>—</td><td>Navigation</td><td>Navigation.tsx</td><td>—</td><td>Bottom-fixed glassmorphic bar, fullscreen overlay menu</td></tr>
+      <tr><td>1</td><td>Hero</td><td>Hero.tsx</td><td>Dark (#212325)</td><td>Full-viewport, clip-path image reveal, top header with logo, heading at bottom</td></tr>
+      <tr><td>2</td><td>Marquee</td><td>Marquee.tsx</td><td>Black</td><td>Scrolling service/location ticker</td></tr>
+      <tr><td>3</td><td>Intro</td><td>Intro.tsx</td><td>Cream</td><td>Large editorial statement, "Who We Are" CTA</td></tr>
+      <tr><td>4</td><td>About</td><td>About.tsx</td><td>Cream</td><td>Company intro, Dusit Thani image, animated counters</td></tr>
+      <tr><td>5</td><td>Vision</td><td>Vision.tsx</td><td>Cream</td><td>Vision quote word-by-word, mission statement</td></tr>
+      <tr><td>6</td><td>Properties</td><td>Properties.tsx</td><td>Cream</td><td>4-column property grid with clip-path reveals</td></tr>
+      <tr><td>7</td><td>Showcase</td><td>Showcase.tsx</td><td>Black</td><td>Full-viewport The Square Plaza feature, deep parallax</td></tr>
+      <tr><td>8</td><td>Stats</td><td>Stats.tsx</td><td>Cream</td><td>Animated counters: 30+ years, 654 units, 4 emirates, 98%</td></tr>
+      <tr><td>9</td><td>Services</td><td>Services.tsx</td><td>Cream</td><td>4 service rows with hover interactions</td></tr>
+      <tr><td>10</td><td>Featured Projects</td><td>FeaturedProjects.tsx</td><td>Dark</td><td>Project list with cursor-following hover image previews</td></tr>
+      <tr><td>11</td><td>Reviews</td><td>Reviews.tsx</td><td>Dark</td><td>Testimonial carousel with GSAP timeline transitions</td></tr>
+      <tr><td>12</td><td>Gallery</td><td>Gallery.tsx</td><td>Cream</td><td>Mosaic image grid with clip-path reveals</td></tr>
+      <tr><td>13</td><td>CTA Banner</td><td>CtaBanner.tsx</td><td>Cream</td><td>Large heading, dual buttons</td></tr>
+      <tr><td>—</td><td>Footer</td><td>Footer.tsx</td><td>Image bg</td><td>Full-viewport, dark card menu, watermark, scroll-to-top</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ 05 — TECH STACK ═══════════ -->
+<div class="page">
+  <div class="section-num">05 &mdash; Technology Stack</div>
+  <h3>Technical Architecture</h3>
+  <div class="accent-bar"></div>
+
+  <table>
+    <thead><tr><th>Layer</th><th>Technology</th><th>Version</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Framework</td><td>Next.js</td><td>16.2.1</td><td>React framework with App Router, Turbopack</td></tr>
+      <tr><td>Language</td><td>TypeScript</td><td>5.x</td><td>Type-safe component development</td></tr>
+      <tr><td>Styling</td><td>Tailwind CSS</td><td>v4</td><td>Utility-first CSS with @theme inline customization</td></tr>
+      <tr><td>Animation</td><td>GSAP + ScrollTrigger</td><td>3.x</td><td>Premium scroll-based animations, word reveals, parallax</td></tr>
+      <tr><td>Fonts</td><td>Google Fonts</td><td>—</td><td>Outfit + Space Mono via CDN link tags</td></tr>
+      <tr><td>Images</td><td>Local + Unsplash</td><td>—</td><td>Client property photos + high-quality stock for hero/showcase</td></tr>
+      <tr><td>Deployment</td><td>Vercel</td><td>—</td><td>Serverless deployment platform</td></tr>
+      <tr><td>Version Control</td><td>Git</td><td>—</td><td>Private repository</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Project Structure</h4>
+  <table>
+    <thead><tr><th>Path</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr><td><code>src/app/</code></td><td>layout.tsx, page.tsx, globals.css — app entry points</td></tr>
+      <tr><td><code>src/components/</code></td><td>19 component files — all sections + utilities</td></tr>
+      <tr><td><code>public/images/</code></td><td>5 images — EWIG logo + 4 property photos from client</td></tr>
+      <tr><td><code>public/fonts/</code></td><td>Font files (SF Pro Display .woff — legacy, replaced by Google Fonts)</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Component Inventory</h4>
+  <div class="component-grid">
+    <div class="component-card"><div class="name">Preloader.tsx</div><div class="desc">3D cube animation, cream bg, dark overlay exit</div></div>
+    <div class="component-card"><div class="name">Navigation.tsx</div><div class="desc">Bottom nav bar, fullscreen menu, footer-aware hiding</div></div>
+    <div class="component-card"><div class="name">Hero.tsx</div><div class="desc">Clip-path reveal, top header, word animation</div></div>
+    <div class="component-card"><div class="name">Marquee.tsx</div><div class="desc">Infinite scrolling text ticker</div></div>
+    <div class="component-card"><div class="name">Intro.tsx</div><div class="desc">Editorial statement with word-by-word reveal</div></div>
+    <div class="component-card"><div class="name">About.tsx</div><div class="desc">Image reveal, counters, company description</div></div>
+    <div class="component-card"><div class="name">Vision.tsx</div><div class="desc">Vision/mission word-by-word editorial text</div></div>
+    <div class="component-card"><div class="name">Properties.tsx</div><div class="desc">4-column grid, clip-path card reveals</div></div>
+    <div class="component-card"><div class="name">Showcase.tsx</div><div class="desc">Full-viewport parallax, The Square Plaza</div></div>
+    <div class="component-card"><div class="name">Stats.tsx</div><div class="desc">Animated counters, diamond rule divider</div></div>
+    <div class="component-card"><div class="name">Services.tsx</div><div class="desc">Numbered service rows, hover interactions</div></div>
+    <div class="component-card"><div class="name">FeaturedProjects.tsx</div><div class="desc">Project list, cursor-following hover images</div></div>
+    <div class="component-card"><div class="name">Reviews.tsx</div><div class="desc">Carousel with GSAP timeline transitions</div></div>
+    <div class="component-card"><div class="name">Gallery.tsx</div><div class="desc">Mosaic grid, clip-path reveals</div></div>
+    <div class="component-card"><div class="name">CtaBanner.tsx</div><div class="desc">Large heading, dual CTA buttons</div></div>
+    <div class="component-card"><div class="name">Footer.tsx</div><div class="desc">Full-vh, bg image, dark card menu, watermark</div></div>
+    <div class="component-card"><div class="name">Graphics.tsx</div><div class="desc">9 decorative SVG elements (squares, orbs, dots)</div></div>
+    <div class="component-card"><div class="name">SmoothScroll.tsx</div><div class="desc">Lenis wrapper (removed for performance)</div></div>
+    <div class="component-card"><div class="name">CustomCursor.tsx</div><div class="desc">Glassmorphic cursor (removed for performance)</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ 06 — AGENTS TABLE ═══════════ -->
+<div class="page">
+  <div class="section-num">06 &mdash; AI Agents Deployed — Overview</div>
+  <h3>Agent Execution Summary</h3>
+  <div class="accent-bar"></div>
+  <p class="lead">A total of 16 specialized AI agents were deployed across 3 major iterations, working in parallel batches to maximize development speed. Each agent operated autonomously with full context of the project requirements.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num">16</div>
+      <div class="label">Total Agents</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">~24 min</div>
+      <div class="label">Total Agent Time</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">36</div>
+      <div class="label">Files Created</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">5,262</div>
+      <div class="label">Lines of Code</div>
+    </div>
+  </div>
+
+  <h4>Agent Type Distribution</h4>
+  <table>
+    <thead><tr><th>Agent Type</th><th>Role Description</th><th>Count</th><th>Total Time</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Component Builder</td>
+        <td>Creates full React/TypeScript components from scratch with GSAP animations, responsive layouts, and proper CSS integration</td>
+        <td style="text-align:center">10</td>
+        <td>~14 min</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Animation Enhancer</td>
+        <td>Rewrites existing components with premium GSAP animations — word splits, clip-path reveals, parallax, timeline transitions</td>
+        <td style="text-align:center">2</td>
+        <td>~4 min</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Visual Decorator</td>
+        <td>Adds decorative SVG graphic elements across all sections — reads each file and injects elements without breaking existing code</td>
+        <td style="text-align:center">1</td>
+        <td>~2.5 min</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Utility Builder</td>
+        <td>Creates utility/wrapper components (smooth scroll, custom cursor, marquee ticker)</td>
+        <td style="text-align:center">1</td>
+        <td>~47s</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Research / Explore</td>
+        <td>Analyzes external websites, extracts design patterns, CSS values, and animation techniques</td>
+        <td style="text-align:center">2</td>
+        <td>~2 min</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ 06b — DETAILED AGENT LOG ═══════════ -->
+<div class="page">
+  <div class="section-num">06b &mdash; Detailed Agent Execution Log</div>
+  <h3>Iteration 1: Initial Build (Rejected)</h3>
+  <div class="accent-bar"></div>
+  <p>5 agents deployed simultaneously. Built 12 components using traditional top-header design with Playfair Display font, standard card layouts, and basic GSAP animations. Client rejected this iteration.</p>
+
+  <table>
+    <thead><tr><th>Agent</th><th>ID</th><th>Role</th><th>Task Name</th><th>Files</th><th>Agents</th><th>Time</th><th>Tool Uses</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 1</td>
+        <td><code style="font-size:10px">a74cddbdd49b</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Preloader + Header</td>
+        <td>Preloader.tsx<br>Header.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>129.8s</td>
+        <td style="text-align:center">12</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 2</td>
+        <td><code style="font-size:10px">af97f4557376</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Hero + About</td>
+        <td>Hero.tsx<br>About.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>133.7s</td>
+        <td style="text-align:center">17</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 3</td>
+        <td><code style="font-size:10px">aa0eb702956b</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Properties + Managed Properties</td>
+        <td>FeaturedProperties.tsx<br>ManagedProperties.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>125.0s</td>
+        <td style="text-align:center">15</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 4</td>
+        <td><code style="font-size:10px">a4093bb8c974</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Services + WhyChooseUs</td>
+        <td>Services.tsx<br>WhyChooseUs.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>98.5s</td>
+        <td style="text-align:center">13</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 5</td>
+        <td><code style="font-size:10px">ac84f9901236</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Locations + Blog + Newsletter + Footer</td>
+        <td>Locations.tsx<br>BlogPreview.tsx<br>Newsletter.tsx<br>Footer.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>127.6s</td>
+        <td style="text-align:center">9</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px"><strong>Batch total:</strong> 5 agents &times; ~2 min each = ~10.2 min parallel (executed simultaneously, wall clock ~2.2 min)</p>
+
+  <h3 style="margin-top:48px">Iteration 2: Complete Rebuild (fluid.glass)</h3>
+  <div class="accent-bar"></div>
+  <p>All v1 components deleted. 5 new agents deployed simultaneously with completely rewritten prompts targeting the fluid.glass aesthetic — bottom nav, dark/cream palette, editorial layouts.</p>
+
+  <table>
+    <thead><tr><th>Agent</th><th>ID</th><th>Role</th><th>Task Name</th><th>Files</th><th>Agents</th><th>Time</th><th>Tool Uses</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 6</td>
+        <td><code style="font-size:10px">a8de5213a166</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Preloader + Navigation (v2)</td>
+        <td>Preloader.tsx<br>Navigation.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>38.8s</td>
+        <td style="text-align:center">4</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 7</td>
+        <td><code style="font-size:10px">aa946bcee15f</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Hero + About (v2)</td>
+        <td>Hero.tsx<br>About.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>54.6s</td>
+        <td style="text-align:center">5</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 8</td>
+        <td><code style="font-size:10px">a93658c231cf</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Properties + Showcase (v2)</td>
+        <td>Properties.tsx<br>Showcase.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>57.3s</td>
+        <td style="text-align:center">5</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 9</td>
+        <td><code style="font-size:10px">a039f6c179f6</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Services + Reviews (v2)</td>
+        <td>Services.tsx<br>Reviews.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>77.6s</td>
+        <td style="text-align:center">5</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 10</td>
+        <td><code style="font-size:10px">aa65b9c9cf6e</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Build Gallery + CTA + Footer (v2)</td>
+        <td>Gallery.tsx<br>CtaBanner.tsx<br>Footer.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>77.0s</td>
+        <td style="text-align:center">6</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px"><strong>Batch total:</strong> 5 agents &times; ~1 min each = ~5.1 min parallel (wall clock ~1.3 min)</p>
+</div>
+
+<!-- ═══════════ 06c — ITERATION 3 AGENTS ═══════════ -->
+<div class="page">
+  <div class="section-num">06c &mdash; Detailed Agent Execution Log (continued)</div>
+  <h3>Iteration 3: Premium Animations + New Sections</h3>
+  <div class="accent-bar"></div>
+  <p>4 agents deployed simultaneously to create 6 new components and completely rewrite 6 existing components with premium GSAP animations — word-by-word reveals, clip-path image reveals, parallax, timeline transitions.</p>
+
+  <table>
+    <thead><tr><th>Agent</th><th>ID</th><th>Role</th><th>Task Name</th><th>Files</th><th>Agents</th><th>Time</th><th>Tool Uses</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 11</td>
+        <td><code style="font-size:10px">a3bd603709e3</code></td>
+        <td><span class="tag" style="background:rgba(11,16,18,0.08);color:var(--text)">Utility</span></td>
+        <td>Create SmoothScroll + CustomCursor + Marquee</td>
+        <td>SmoothScroll.tsx<br>CustomCursor.tsx<br>Marquee.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>47.2s</td>
+        <td style="text-align:center">3</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 12</td>
+        <td><code style="font-size:10px">af9e0c97cec3</code></td>
+        <td><span class="tag">Builder</span></td>
+        <td>Create Vision + FeaturedProjects + Stats</td>
+        <td>Vision.tsx<br>FeaturedProjects.tsx<br>Stats.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>82.8s</td>
+        <td style="text-align:center">8</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 13</td>
+        <td><code style="font-size:10px">a59fa5838c0e</code></td>
+        <td><span class="tag" style="background:rgba(201,169,110,0.15);color:#8a6b30">Enhancer</span></td>
+        <td>Enhance Hero + About with premium animations</td>
+        <td>Hero.tsx (rewrite)<br>About.tsx (rewrite)</td>
+        <td style="text-align:center">1</td>
+        <td>99.0s</td>
+        <td style="text-align:center">4</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 14</td>
+        <td><code style="font-size:10px">a06c11a4f0ff</code></td>
+        <td><span class="tag" style="background:rgba(201,169,110,0.15);color:#8a6b30">Enhancer</span></td>
+        <td>Enhance Properties + Showcase + Gallery + Reviews</td>
+        <td>Properties.tsx (rewrite)<br>Showcase.tsx (rewrite)<br>Gallery.tsx (rewrite)<br>Reviews.tsx (rewrite)</td>
+        <td style="text-align:center">1</td>
+        <td>150.1s</td>
+        <td style="text-align:center">8</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px"><strong>Batch total:</strong> 4 agents = ~6.3 min parallel (wall clock ~2.5 min)</p>
+
+  <h3 style="margin-top:48px">Phase 4: Visual Polish Agents</h3>
+  <div class="accent-bar"></div>
+
+  <table>
+    <thead><tr><th>Agent</th><th>ID</th><th>Role</th><th>Task Name</th><th>Files Modified</th><th>Agents</th><th>Time</th><th>Tool Uses</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent 15</td>
+        <td><code style="font-size:10px">ab8a8f18ae98</code></td>
+        <td><span class="tag" style="background:rgba(33,35,37,0.1);color:var(--text)">Decorator</span></td>
+        <td>Add graphic elements to all sections</td>
+        <td>Hero.tsx, About.tsx, Vision.tsx, Properties.tsx, Showcase.tsx, Services.tsx, Stats.tsx, Reviews.tsx, CtaBanner.tsx, Footer.tsx</td>
+        <td style="text-align:center">1</td>
+        <td>153.5s</td>
+        <td style="text-align:center">34</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:48px">Research Agents</h3>
+  <div class="accent-bar"></div>
+
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Task Name</th><th>Purpose</th><th>Agents</th><th>Time</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent R1</td>
+        <td><span class="tag" style="background:rgba(0,120,255,0.1);color:#0066cc">Research</span></td>
+        <td>Analyze fluid.glass website</td>
+        <td>Extracted complete CSS architecture, grid system, navigation mechanics, animation easing curves, color palette, typography scale, section layouts, and scroll behavior</td>
+        <td style="text-align:center">1</td>
+        <td>~60s</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text)">Agent R2</td>
+        <td><span class="tag" style="background:rgba(0,120,255,0.1);color:#0066cc">Research</span></td>
+        <td>Research modern real estate design trends</td>
+        <td>Surveyed Awwwards, Colorlib, DesignRush for 2025-2026 real estate website patterns — identified key animation, layout, and UX trends</td>
+        <td style="text-align:center">1</td>
+        <td>~45s</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:40px">Consolidated Agent Statistics</h4>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:600;color:var(--text)">Total agents spawned</td><td>16 (+ 2 research)</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Max parallel agents in single batch</td><td>5 (Iterations 1 & 2)</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Total cumulative agent execution time</td><td>~24.1 minutes</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Effective wall-clock time (parallel)</td><td>~8.5 minutes</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Total tool uses across all agents</td><td>131</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Total token usage across all agents</td><td>~348,000 tokens</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Files created by agents</td><td>31 component files</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Files modified by agents (decorator pass)</td><td>10 component files</td></tr>
+      <tr><td style="font-weight:600;color:var(--text)">Components that survived to final build</td><td>19 of 31 (12 from v1 were discarded)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ 07 — ITERATION TIMELINE ═══════════ -->
+<div class="page">
+  <div class="section-num">07 &mdash; Development Timeline</div>
+  <h3>Major Prompts & Iterations</h3>
+  <div class="accent-bar"></div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">Phase 1 — Initial Analysis</div>
+      <div class="title">Document Absorption & Website Analysis</div>
+      <div class="desc">Read RFQ PDF (22 modules), SOW text file. Fetched and analyzed eastandwest.ae — extracted all content, images, colors, tone, navigation structure, property listings, contact info.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 2 — Sitemap Creation</div>
+      <div class="title">Homepage Section Architecture</div>
+      <div class="desc">Created detailed sitemap: Preloader → Announcement Bar → Header → Hero → About → Properties → Managed Properties → Services → Values → Locations → Blog → Newsletter → Footer.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 3 — First Build (Rejected)</div>
+      <div class="title">Initial Homepage Build</div>
+      <div class="desc">Built with traditional top header, Playfair Display font, standard card layouts, basic GSAP animations. Client feedback: "the website looks very bad", "current website looks better than this one".</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 4 — Complete Rebuild</div>
+      <div class="title">fluid.glass Aesthetic Adoption</div>
+      <div class="desc">Analyzed fluid.glass in extreme detail. Rebuilt everything from scratch: bottom-fixed glassmorphic nav, 3D cube preloader, dark/cream palette, editorial layouts, Syne + Space Mono fonts.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 5 — Image Integration</div>
+      <div class="title">Local Images + Unsplash</div>
+      <div class="desc">Copied 4 client images from /images folder to public. Added Unsplash images for hero (Dubai skyline), showcase (glass architecture), gallery, and footer (luxury property).</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 6 — Animation Overhaul</div>
+      <div class="title">Premium Animations + New Sections</div>
+      <div class="desc">Added 6 new sections (Marquee, Intro, Vision, Stats, FeaturedProjects). Upgraded all animations: word-by-word reveals, clip-path image reveals, parallax, GSAP timeline transitions. Added Lenis smooth scroll + custom cursor (later removed for performance).</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 7 — Performance Optimization</div>
+      <div class="title">Scroll Lag Resolution</div>
+      <div class="desc">Removed Lenis (double RAF loop), removed custom cursor (backdrop-filter GPU overhead), removed 8 scrub-based ScrollTriggers (Gallery per-image parallax, Stats parallax, Reviews gradient). Scroll became smooth.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 8 — Visual Polish</div>
+      <div class="title">Accent Color, Graphics, Font, Header, Footer</div>
+      <div class="desc">Integrated #cee002 across all hover states, buttons, links, gradients. Added decorative graphic elements (rotating squares, dot grids, gradient orbs, corner brackets). Switched to Outfit font. Redesigned hero with top header bar + logo. Rebuilt footer with fluid.glass dark card menu layout. Fixed nav overlap with IntersectionObserver.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 9 — Deployment</div>
+      <div class="title">Code Deployment</div>
+      <div class="desc">Committed all work and pushed to the private remote repository on main branch.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 08 — KEY DECISIONS ═══════════ -->
+<div class="page">
+  <div class="section-num">08 &mdash; Key Design Decisions</div>
+  <h3>Decisions & Rationale</h3>
+  <div class="accent-bar"></div>
+
+  <table>
+    <thead><tr><th>Decision</th><th>Choice</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Navigation style</td><td>Bottom-fixed floating bar</td><td>Matches fluid.glass reference, modern and distinctive</td></tr>
+      <tr><td>Color theme</td><td>Dark/cream with #cee002 accent</td><td>Cream backgrounds from fluid.glass, accent inherited from client brand</td></tr>
+      <tr><td>Font</td><td>Outfit (→ Aeonik Pro alternative)</td><td>Closest free geometric sans-serif to Aeonik Pro; premium feel</td></tr>
+      <tr><td>Animation library</td><td>GSAP + ScrollTrigger</td><td>Industry standard for premium web animations, fine-grained control</td></tr>
+      <tr><td>Smooth scroll</td><td>Native (Lenis removed)</td><td>Lenis caused double RAF + conflicts with 15+ ScrollTrigger instances</td></tr>
+      <tr><td>Custom cursor</td><td>Removed</td><td>backdrop-filter on moving element caused frame drops</td></tr>
+      <tr><td>Image strategy</td><td>Local + Unsplash</td><td>4 client photos for properties, Unsplash for hero/showcase atmosphere</td></tr>
+      <tr><td>Footer design</td><td>Full-viewport with dark card</td><td>Matches fluid.glass footer — background image, centered nav card</td></tr>
+      <tr><td>Responsive approach</td><td>Flexbox + CSS Grid inline</td><td>Avoided Tailwind/CSS grid conflicts from v1; reliable across viewports</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Issues Encountered & Resolved</h4>
+  <table>
+    <thead><tr><th>Issue</th><th>Resolution</th></tr></thead>
+    <tbody>
+      <tr><td>White screen on load (v1)</td><td>Removed position:fixed body + scroll container pattern; moved fonts to link tags</td></tr>
+      <tr><td>Grid-24 class conflicts with Tailwind col-span-*</td><td>Replaced with inline flexbox/grid styles using px values</td></tr>
+      <tr><td>Scroll lag with Lenis + 11 scrub triggers</td><td>Removed Lenis, reduced scrub triggers from 11 to 4</td></tr>
+      <tr><td>Bottom nav overlapping footer</td><td>IntersectionObserver hides nav when footer is 15% visible</td></tr>
+      <tr><td>GSAP tl.call() type error (4 args)</td><td>Changed to tl.add() which accepts position parameter</td></tr>
+      <tr><td>Aeonik Pro unavailable (commercial font)</td><td>Substituted with Outfit from Google Fonts</td></tr>
+      <tr><td>External images slow to load</td><td>Downloaded EWIG logo + property images locally to /public</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ 09 — NEXT STEPS ═══════════ -->
+<div class="page">
+  <div class="section-num">09 &mdash; Next Steps</div>
+  <h3>Recommended Path Forward</h3>
+  <div class="accent-bar"></div>
+
+  <p class="lead">Upon client approval of the homepage, the following inner pages and features should be developed using the established design system and component library.</p>
+
+  <h4>Phase 2: Inner Pages</h4>
+  <table>
+    <thead><tr><th>Priority</th><th>Page</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">High</span></td><td>Property Search + Results (list & map views)</td><td>Complex</td></tr>
+      <tr><td><span class="tag">High</span></td><td>Individual Property Listing Page</td><td>Complex</td></tr>
+      <tr><td><span class="tag">High</span></td><td>About Us (leadership, metrics, awards)</td><td>Medium</td></tr>
+      <tr><td><span class="tag">High</span></td><td>Contact Page (offices, form, map)</td><td>Medium</td></tr>
+      <tr><td><span class="tag-dark">Med</span></td><td>Managed Properties (portfolio + individual)</td><td>Medium</td></tr>
+      <tr><td><span class="tag-dark">Med</span></td><td>Blog/News (listing + article pages)</td><td>Medium</td></tr>
+      <tr><td><span class="tag-dark">Med</span></td><td>Careers (listing + job detail + application)</td><td>Medium</td></tr>
+      <tr><td><span class="tag-dark">Med</span></td><td>ESG, Quality Policy, Maintenance, Legal pages</td><td>Low–Med</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Phase 3: Backend & Admin</h4>
+  <table>
+    <thead><tr><th>Feature</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Admin Dashboard</td><td>Role-based access (HR, Sales, Admin, Super Admin, Marketing)</td></tr>
+      <tr><td>Property CMS</td><td>CRUD with status tabs, auto-generated SEO/OG</td></tr>
+      <tr><td>Blog CMS</td><td>Post management with schema markup</td></tr>
+      <tr><td>Careers CMS</td><td>Job posting, applications, recruiter management</td></tr>
+      <tr><td>Newsletter System</td><td>SendGrid integration</td></tr>
+      <tr><td>Arabic (RTL) Support</td><td>Bilingual toggle with full RTL layout</td></tr>
+      <tr><td>Third-party Integrations</td><td>Google Maps/Mapbox, reCAPTCHA, GTM, Meta Pixel</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:48px;padding:32px;background:var(--cream);border-radius:8px;text-align:center">
+    <p style="font-size:16px;font-weight:500;color:var(--text);max-width:none;margin-bottom:8px">
+      End of Report
+    </p>
+    <p style="font-size:12px;color:var(--muted);max-width:none;margin-bottom:0">
+      Prepared by Claude Opus 4.6 &mdash; March 30, 2026
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

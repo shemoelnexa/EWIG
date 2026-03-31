@@ -381,8 +381,8 @@
   <h1>EWIG Website<br>Redesign</h1>
   <h2>East & West International Group</h2>
   <div class="cover-meta">
-    <span>Date: March 30, 2026</span>
-    <span>Version: 1.0</span>
+    <span>Date: April 1, 2026</span>
+    <span>Version: 1.1</span>
     <span>Platform: Next.js 16</span>
   </div>
   <div class="cover-footer">Confidential &mdash; East & West International Group</div>
@@ -540,11 +540,11 @@
     <thead><tr><th>#</th><th>Section</th><th>Component</th><th>Background</th><th>Description</th></tr></thead>
     <tbody>
       <tr><td>—</td><td>Preloader</td><td>Preloader.tsx</td><td>Cream</td><td>3D rotating cube, "EAST & WEST" label, dark overlay transition</td></tr>
-      <tr><td>—</td><td>Navigation</td><td>Navigation.tsx</td><td>—</td><td>Bottom-fixed glassmorphic bar, fullscreen overlay menu</td></tr>
-      <tr><td>1</td><td>Hero</td><td>Hero.tsx</td><td>Dark (#212325)</td><td>Full-viewport, clip-path image reveal, top header with logo, heading at bottom</td></tr>
+      <tr><td>—</td><td>Navigation</td><td>Navigation.tsx</td><td>—</td><td>Bottom-fixed glassmorphic bar, fullscreen overlay with 5 primary + 4 secondary links, close button, body scroll lock</td></tr>
+      <tr><td>1</td><td>Hero</td><td>Hero.tsx</td><td>Dark (#212325)</td><td>Full-viewport, clip-path image reveal, top header with logo, heading at bottom, responsive layout with mobile/tablet breakpoints</td></tr>
       <tr><td>2</td><td>Marquee</td><td>Marquee.tsx</td><td>Black</td><td>Scrolling service/location ticker</td></tr>
       <tr><td>3</td><td>Intro</td><td>Intro.tsx</td><td>Cream</td><td>Large editorial statement, "Who We Are" CTA</td></tr>
-      <tr><td>4</td><td>About</td><td>About.tsx</td><td>Cream</td><td>Company intro, Dusit Thani image, animated counters</td></tr>
+      <tr><td>4</td><td>About</td><td>About.tsx</td><td>Cream</td><td>Company intro, curated architectural image, animated counters</td></tr>
       <tr><td>5</td><td>Vision</td><td>Vision.tsx</td><td>Cream</td><td>Vision quote word-by-word, mission statement</td></tr>
       <tr><td>6</td><td>Properties</td><td>Properties.tsx</td><td>Cream</td><td>4-column property grid with clip-path reveals</td></tr>
       <tr><td>7</td><td>Showcase</td><td>Showcase.tsx</td><td>Black</td><td>Full-viewport The Square Plaza feature, deep parallax</td></tr>
@@ -573,7 +573,7 @@
       <tr><td>Styling</td><td>Tailwind CSS</td><td>v4</td><td>Utility-first CSS with @theme inline customization</td></tr>
       <tr><td>Animation</td><td>GSAP + ScrollTrigger</td><td>3.x</td><td>Premium scroll-based animations, word reveals, parallax</td></tr>
       <tr><td>Fonts</td><td>Google Fonts</td><td>—</td><td>Outfit + Space Mono via CDN link tags</td></tr>
-      <tr><td>Images</td><td>Local + Unsplash</td><td>—</td><td>Client property photos + high-quality stock for hero/showcase</td></tr>
+      <tr><td>Images</td><td>Local only</td><td>—</td><td>All curated architectural photography stored locally — no external Unsplash URLs</td></tr>
       <tr><td>Deployment</td><td>Vercel</td><td>—</td><td>Serverless deployment platform</td></tr>
       <tr><td>Version Control</td><td>Git</td><td>—</td><td>Private repository</td></tr>
     </tbody>
@@ -585,7 +585,8 @@
     <tbody>
       <tr><td><code>src/app/</code></td><td>layout.tsx, page.tsx, globals.css — app entry points</td></tr>
       <tr><td><code>src/components/</code></td><td>19 component files — all sections + utilities</td></tr>
-      <tr><td><code>public/images/</code></td><td>5 images — EWIG logo + 4 property photos from client</td></tr>
+      <tr><td><code>public/images/</code></td><td>14 images — EWIG logo + 9 curated architectural photos (hero, about, flagship, gallery 1–5, footer) + 4 legacy property photos</td></tr>
+      <tr><td><code>public/videos/</code></td><td>1 video — timelapse footage (available, not currently in use)</td></tr>
       <tr><td><code>public/fonts/</code></td><td>Font files (SF Pro Display .woff — legacy, replaced by Google Fonts)</td></tr>
     </tbody>
   </table>
@@ -593,13 +594,13 @@
   <h4>Component Inventory</h4>
   <div class="component-grid">
     <div class="component-card"><div class="name">Preloader.tsx</div><div class="desc">3D cube animation, cream bg, dark overlay exit</div></div>
-    <div class="component-card"><div class="name">Navigation.tsx</div><div class="desc">Bottom nav bar, fullscreen menu, footer-aware hiding</div></div>
-    <div class="component-card"><div class="name">Hero.tsx</div><div class="desc">Clip-path reveal, top header, word animation</div></div>
+    <div class="component-card"><div class="name">Navigation.tsx</div><div class="desc">Bottom nav bar, fullscreen overlay (5 primary + 4 secondary links), close button, body scroll lock, responsive</div></div>
+    <div class="component-card"><div class="name">Hero.tsx</div><div class="desc">Clip-path reveal, top header, word animation, responsive breakpoints (mobile/tablet)</div></div>
     <div class="component-card"><div class="name">Marquee.tsx</div><div class="desc">Infinite scrolling text ticker</div></div>
     <div class="component-card"><div class="name">Intro.tsx</div><div class="desc">Editorial statement with word-by-word reveal</div></div>
     <div class="component-card"><div class="name">About.tsx</div><div class="desc">Image reveal, counters, company description</div></div>
     <div class="component-card"><div class="name">Vision.tsx</div><div class="desc">Vision/mission word-by-word editorial text</div></div>
-    <div class="component-card"><div class="name">Properties.tsx</div><div class="desc">4-column grid, clip-path card reveals</div></div>
+    <div class="component-card"><div class="name">Properties.tsx</div><div class="desc">4-column grid, clip-path card reveals, search dropdown z-index fix</div></div>
     <div class="component-card"><div class="name">Showcase.tsx</div><div class="desc">Full-viewport parallax, The Square Plaza</div></div>
     <div class="component-card"><div class="name">Stats.tsx</div><div class="desc">Animated counters, diamond rule divider</div></div>
     <div class="component-card"><div class="name">Services.tsx</div><div class="desc">Numbered service rows, hover interactions</div></div>
@@ -607,7 +608,8 @@
     <div class="component-card"><div class="name">Reviews.tsx</div><div class="desc">Carousel with GSAP timeline transitions</div></div>
     <div class="component-card"><div class="name">Gallery.tsx</div><div class="desc">Mosaic grid, clip-path reveals</div></div>
     <div class="component-card"><div class="name">CtaBanner.tsx</div><div class="desc">Large heading, dual CTA buttons</div></div>
-    <div class="component-card"><div class="name">Footer.tsx</div><div class="desc">Full-vh, bg image, dark card menu, watermark</div></div>
+    <div class="component-card"><div class="name">Footer.tsx</div><div class="desc">Full-vh, bg image, dark card menu with updated nav (5 primary + 3 secondary), watermark</div></div>
+    <div class="component-card"><div class="name">PropertySearch.tsx</div><div class="desc">Reusable search bar with dropdowns, dark/light variants, z-index 1100 for overlay</div></div>
     <div class="component-card"><div class="name">Graphics.tsx</div><div class="desc">9 decorative SVG elements (squares, orbs, dots)</div></div>
     <div class="component-card"><div class="name">SmoothScroll.tsx</div><div class="desc">Lenis wrapper (removed for performance)</div></div>
     <div class="component-card"><div class="name">CustomCursor.tsx</div><div class="desc">Glassmorphic cursor (removed for performance)</div></div>
@@ -979,6 +981,12 @@
       <div class="title">Code Deployment</div>
       <div class="desc">Committed all work and pushed to the private remote repository on main branch.</div>
     </div>
+
+    <div class="timeline-item">
+      <div class="time">Phase 10 — Image Overhaul + Navigation Redesign (April 1, 2026)</div>
+      <div class="title">Curated Photography, Navigation Restructure, Responsive Design</div>
+      <div class="desc">Replaced all Unsplash placeholder images with 9 curated architectural photos across Hero, About, Flagship, Gallery (5), and Footer. Restructured navigation to 5 primary links (large text) + 4 secondary links (small inline) with close button and body scroll lock. Updated footer navigation to match. Added responsive breakpoints (768px, 1024px) for hero top bar, menu overlay, and bottom nav. Fixed search dropdown z-index rendering above the bottom navigation bar.</div>
+    </div>
   </div>
 </div>
 
@@ -997,9 +1005,10 @@
       <tr><td>Animation library</td><td>GSAP + ScrollTrigger</td><td>Industry standard for premium web animations, fine-grained control</td></tr>
       <tr><td>Smooth scroll</td><td>Native (Lenis removed)</td><td>Lenis caused double RAF + conflicts with 15+ ScrollTrigger instances</td></tr>
       <tr><td>Custom cursor</td><td>Removed</td><td>backdrop-filter on moving element caused frame drops</td></tr>
-      <tr><td>Image strategy</td><td>Local + Unsplash</td><td>4 client photos for properties, Unsplash for hero/showcase atmosphere</td></tr>
+      <tr><td>Image strategy</td><td>All local</td><td>9 curated architectural photos replaced all external Unsplash URLs — zero external image dependencies</td></tr>
+      <tr><td>Navigation structure</td><td>5 primary + 4 secondary links</td><td>Primary (large): Home, Properties, About Us, Tenant Benefits, ESG. Secondary (small inline): Quality Policy, Blogs, Careers, Contact</td></tr>
       <tr><td>Footer design</td><td>Full-viewport with dark card</td><td>Matches fluid.glass footer — background image, centered nav card</td></tr>
-      <tr><td>Responsive approach</td><td>Flexbox + CSS Grid inline</td><td>Avoided Tailwind/CSS grid conflicts from v1; reliable across viewports</td></tr>
+      <tr><td>Responsive approach</td><td>Flexbox + CSS Grid inline + media queries</td><td>Avoided Tailwind/CSS grid conflicts from v1; added 768px and 1024px breakpoints for mobile/tablet</td></tr>
     </tbody>
   </table>
 
@@ -1014,6 +1023,10 @@
       <tr><td>GSAP tl.call() type error (4 args)</td><td>Changed to tl.add() which accepts position parameter</td></tr>
       <tr><td>Aeonik Pro unavailable (commercial font)</td><td>Substituted with Outfit from Google Fonts</td></tr>
       <tr><td>External images slow to load</td><td>Downloaded EWIG logo + property images locally to /public</td></tr>
+      <tr><td>Search dropdowns hidden behind bottom nav</td><td>Elevated dropdown z-index to 1100 (above nav's 1000), added stacking context on search wrappers</td></tr>
+      <tr><td>Hero layout broke after CSS class migration</td><td>Restored critical inline styles (position, z-index) for GSAP compatibility; CSS classes handle only responsive overrides</td></tr>
+      <tr><td>Navigation menu links pointed to non-existent anchors</td><td>Restructured to 5 primary + 4 secondary links matching actual site pages from SOW/RFQ</td></tr>
+      <tr><td>No mobile/tablet responsive design</td><td>Added breakpoints at 768px and 1024px for nav, hero, menu overlay with clamp()-based sizing</td></tr>
     </tbody>
   </table>
 </div>
@@ -1060,7 +1073,7 @@
       End of Report
     </p>
     <p style="font-size:12px;color:var(--muted);max-width:none;margin-bottom:0">
-      Prepared by Claude Opus 4.6 &mdash; March 30, 2026
+      Prepared by Claude Opus 4.6 &mdash; Updated April 1, 2026
     </p>
   </div>
 </div>

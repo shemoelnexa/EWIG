@@ -96,7 +96,7 @@ export default function Footer() {
       {/* ── Background image ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
+          src="/images/footer-bg.jpg"
           alt=""
           style={{
             width: "100%",

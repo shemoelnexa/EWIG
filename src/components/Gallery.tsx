@@ -8,32 +8,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const images = [
   {
-    src: "/images/dusit-thani.jpg",
-    alt: "Dusit Thani Complex",
+    src: "/images/gallery-1.jpg",
+    alt: "Modern Architectural Property",
     aspect: "3 / 4",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80",
+    src: "/images/gallery-2.jpg",
     alt: "Luxury Apartments",
     aspect: "16 / 9",
     span: 2,
   },
   {
-    src: "/images/villa.jpg",
-    alt: "Al Qurm Villa",
+    src: "/images/gallery-3.jpg",
+    alt: "Contemporary Villa",
     aspect: "1 / 1",
     span: 1,
   },
   {
-    src: "/images/commercial-building.jpg",
-    alt: "The Square Plaza",
+    src: "/images/gallery-4.jpg",
+    alt: "Commercial Property",
     aspect: "3 / 4",
     span: 1,
   },
   {
-    src: "/images/residential-building.jpg",
-    alt: "Westburry Residence",
+    src: "/images/gallery-5.jpg",
+    alt: "Residential Property",
     aspect: "1 / 1",
     span: 1,
   },

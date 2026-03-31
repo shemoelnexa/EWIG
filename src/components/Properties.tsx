@@ -12,25 +12,25 @@ const properties = [
   {
     name: "Dusit Thani Complex",
     location: "Abu Dhabi",
-    image: "/images/dusit-thani.jpg",
+    image: "/images/gallery-1.jpg",
     type: "Mixed Use",
   },
   {
     name: "Al Qurm Compound",
     location: "Abu Dhabi",
-    image: "/images/villa.jpg",
+    image: "/images/gallery-3.jpg",
     type: "Residential",
   },
   {
     name: "The Square Plaza",
     location: "Abu Dhabi",
-    image: "/images/commercial-building.jpg",
+    image: "/images/gallery-4.jpg",
     type: "Commercial",
   },
   {
     name: "Westburry Residence",
     location: "Dubai Business Bay",
-    image: "/images/residential-building.jpg",
+    image: "/images/gallery-5.jpg",
     type: "Residential",
   },
 ];

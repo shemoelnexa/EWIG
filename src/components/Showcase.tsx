@@ -177,7 +177,7 @@ export default function Showcase() {
       <div style={{ position: "absolute", inset: "-10% 0", overflow: "hidden" }}>
         <img
           ref={imageRef}
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+          src="/images/flagship.jpg"
           alt="The Square Plaza"
           style={{
             width: "100%",

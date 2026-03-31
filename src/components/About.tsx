@@ -312,8 +312,8 @@ export default function About() {
             >
               <img
                 ref={imageRef}
-                src="/images/dusit-thani.jpg"
-                alt="Dusit Thani property"
+                src="/images/about-bg.jpg"
+                alt="Modern architectural property"
                 style={{
                   width: "100%",
                   height: "120%",

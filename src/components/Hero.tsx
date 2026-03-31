@@ -124,7 +124,7 @@ export default function Hero() {
       >
         <img
           ref={imageRef}
-          src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=80"
+          src="/images/hero-bg.jpg"
           alt=""
           style={{
             position: "absolute", inset: 0, width: "100%", height: "130%",

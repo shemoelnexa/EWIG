@@ -13,28 +13,28 @@ const projects = [
     name: "Dusit Thani Complex",
     location: "Abu Dhabi",
     detail: "654 Units",
-    image: "/images/dusit-thani.jpg",
+    image: "/images/gallery-1.jpg",
   },
   {
     num: "02",
     name: "Al Qurm Compound",
     location: "Abu Dhabi",
     detail: "Luxury Villas",
-    image: "/images/villa.jpg",
+    image: "/images/gallery-3.jpg",
   },
   {
     num: "03",
     name: "The Square Plaza",
     location: "Baniyas, Abu Dhabi",
     detail: "Retail & F&B",
-    image: "/images/commercial-building.jpg",
+    image: "/images/gallery-4.jpg",
   },
   {
     num: "04",
     name: "Westburry Residence",
     location: "Business Bay, Dubai",
     detail: "Premium Living",
-    image: "/images/residential-building.jpg",
+    image: "/images/gallery-5.jpg",
   },
 ];
 

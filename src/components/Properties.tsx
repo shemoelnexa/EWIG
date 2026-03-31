@@ -1,11 +1,184 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionNumber, CircleOutline } from "@/components/Graphics";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const locations = ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Ras Al Khaimah"];
+const categories = ["Buy", "Rent", "Off-Plan"];
+const propertyTypes = ["Apartment", "Villa", "Townhouse", "Penthouse", "Commercial", "Mixed Use"];
+const bedrooms = ["Studio", "1 Bedroom", "2 Bedrooms", "3 Bedrooms", "4 Bedrooms", "5+ Bedrooms"];
+const priceRanges = [
+  "Under 500K AED",
+  "500K – 1M AED",
+  "1M – 2M AED",
+  "2M – 5M AED",
+  "5M – 10M AED",
+  "10M+ AED",
+];
+
+function SearchDropdown({
+  icon,
+  label,
+  placeholder,
+  options,
+  value,
+  onChange,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  placeholder: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="search-dropdown" style={{ position: "relative", flex: 1 }}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: "16px 0",
+          display: "flex",
+          flexDirection: "column",
+          gap: "6px",
+          textAlign: "left",
+        }}
+      >
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "10px",
+            fontWeight: 500,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--color-black)",
+          }}
+        >
+          {icon}
+          {label}
+        </span>
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "8px",
+            fontFamily: "var(--font-body)",
+            fontSize: "14px",
+            fontWeight: 400,
+            color: value ? "var(--color-black)" : "rgba(11,16,18,0.4)",
+          }}
+        >
+          {value || placeholder}
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ flexShrink: 0, transition: "transform 0.3s ease", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </button>
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: "-1px",
+            right: "-1px",
+            background: "var(--color-white)",
+            border: "1px solid rgba(11,16,18,0.1)",
+            borderTop: "none",
+            borderRadius: "0 0 3px 3px",
+            zIndex: 50,
+            maxHeight: "220px",
+            overflowY: "auto",
+            boxShadow: "0 12px 32px rgba(11,16,18,0.08)",
+          }}
+        >
+          {options.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => { onChange(opt); setOpen(false); }}
+              className="search-option"
+              style={{
+                width: "100%",
+                padding: "10px 16px",
+                border: "none",
+                background: value === opt ? "rgba(206,224,2,0.1)" : "transparent",
+                cursor: "pointer",
+                textAlign: "left",
+                fontFamily: "var(--font-body)",
+                fontSize: "13px",
+                fontWeight: value === opt ? 500 : 400,
+                color: value === opt ? "var(--color-black)" : "rgba(11,16,18,0.7)",
+                transition: "all 0.2s ease",
+              }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const SearchIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <circle cx="7" cy="7" r="5.5" />
+    <path d="M11 11L14.5 14.5" />
+  </svg>
+);
+const LocationIcon = () => (
+  <svg width="11" height="13" viewBox="0 0 11 13" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5.5 12S10 7.5 10 4.8C10 2.15 7.99.5 5.5.5S1 2.15 1 4.8C1 7.5 5.5 12 5.5 12z" />
+    <circle cx="5.5" cy="4.8" r="1.5" />
+  </svg>
+);
+const CategoryIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+    <path d="M1 3h10M1 6h7M1 9h10" />
+  </svg>
+);
+const PropertyIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="1" y="3" width="12" height="10" rx="1" />
+    <path d="M4 3V1.5h6V3" />
+    <path d="M5 7h4M5 10h4" />
+  </svg>
+);
+const BedroomIcon = () => (
+  <svg width="13" height="11" viewBox="0 0 14 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 11V7h12v4M1 7V3a2 2 0 012-2h8a2 2 0 012 2v4" />
+    <path d="M3 7V5h3v2M8 7V5h3v2" />
+  </svg>
+);
+const PriceIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+    <circle cx="7" cy="7" r="6" />
+    <path d="M7 3v8M5 5.2c0-.8.9-1.2 2-1.2s2 .4 2 1.2-.9 1.3-2 1.5-2 .6-2 1.4.9 1.2 2 1.2 2-.4 2-1.2" />
+  </svg>
+);
 
 const properties = [
   {
@@ -79,6 +252,25 @@ export default function Properties() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const headerRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const [location, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [bedroom, setBedroom] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+
+  const handleClear = () => {
+    setLocation("");
+    setCategory("");
+    setPropertyType("");
+    setBedroom("");
+    setPriceRange("");
+  };
+
+  const handleSearch = () => {
+    // search logic here
+  };
 
   const setCardRef = useCallback((el: HTMLDivElement | null, i: number) => {
     cardsRef.current[i] = el;
@@ -120,6 +312,25 @@ export default function Properties() {
             scrollTrigger: {
               trigger: headerRef.current,
               start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // Search bar reveal
+      if (searchRef.current) {
+        gsap.fromTo(
+          searchRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: searchRef.current,
+              start: "top 90%",
               toggleActions: "play none none none",
             },
           }
@@ -219,6 +430,135 @@ export default function Properties() {
           <a href="#properties" className="link-underline label">
             View all
           </a>
+        </div>
+
+        {/* Search Bar */}
+        <div
+          ref={searchRef}
+          style={{
+            background: "var(--color-white)",
+            borderRadius: "3px",
+            border: "1px solid rgba(11,16,18,0.08)",
+            marginBottom: "48px",
+            opacity: 0,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "stretch",
+              borderBottom: "1px solid rgba(11,16,18,0.06)",
+            }}
+          >
+            <div className="search-filters-row" style={{ flex: 1, display: "flex" }}>
+              <div style={{ flex: 1, padding: "0 20px", borderRight: "1px solid rgba(11,16,18,0.06)" }}>
+                <SearchDropdown
+                  icon={<LocationIcon />}
+                  label="Location"
+                  placeholder="Where do you want to?"
+                  options={locations}
+                  value={location}
+                  onChange={setLocation}
+                />
+              </div>
+              <div style={{ flex: 1, padding: "0 20px", borderRight: "1px solid rgba(11,16,18,0.06)" }}>
+                <SearchDropdown
+                  icon={<CategoryIcon />}
+                  label="Category"
+                  placeholder="Choose Category"
+                  options={categories}
+                  value={category}
+                  onChange={setCategory}
+                />
+              </div>
+              <div style={{ flex: 1, padding: "0 20px", borderRight: "1px solid rgba(11,16,18,0.06)" }}>
+                <SearchDropdown
+                  icon={<PropertyIcon />}
+                  label="Property Type"
+                  placeholder="Choose Property Type?"
+                  options={propertyTypes}
+                  value={propertyType}
+                  onChange={setPropertyType}
+                />
+              </div>
+              <div style={{ flex: 1, padding: "0 20px", borderRight: "1px solid rgba(11,16,18,0.06)" }}>
+                <SearchDropdown
+                  icon={<BedroomIcon />}
+                  label="Bedroom"
+                  placeholder="Choose Room Type"
+                  options={bedrooms}
+                  value={bedroom}
+                  onChange={setBedroom}
+                />
+              </div>
+              <div style={{ flex: 1, padding: "0 20px" }}>
+                <SearchDropdown
+                  icon={<PriceIcon />}
+                  label="Price Range (AED)"
+                  placeholder="Choose price range"
+                  options={priceRanges}
+                  value={priceRange}
+                  onChange={setPriceRange}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: "12px",
+              padding: "14px 20px",
+            }}
+          >
+            <button
+              type="button"
+              onClick={handleClear}
+              className="search-clear-btn"
+              style={{
+                padding: "12px 28px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                background: "transparent",
+                color: "var(--color-black)",
+                border: "1px solid rgba(11,16,18,0.15)",
+                borderRadius: "3px",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+            >
+              Clear
+            </button>
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="search-submit-btn"
+              style={{
+                padding: "12px 28px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                background: "var(--color-accent)",
+                color: "var(--color-black)",
+                border: "1px solid var(--color-accent)",
+                borderRadius: "3px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                transition: "all 0.3s ease",
+              }}
+            >
+              Search
+              <SearchIcon />
+            </button>
+          </div>
         </div>
 
         {/* Property Grid */}
@@ -342,6 +682,25 @@ export default function Properties() {
         }
         .card-img-wrapper:hover .property-hover-overlay {
           opacity: 1 !important;
+        }
+        .search-option:hover {
+          background: rgba(206, 224, 2, 0.08) !important;
+          color: var(--color-black) !important;
+        }
+        .search-clear-btn:hover {
+          border-color: var(--color-black) !important;
+        }
+        .search-submit-btn:hover {
+          background: var(--color-accent-dark) !important;
+          border-color: var(--color-accent-dark) !important;
+        }
+        .search-dropdown + .search-dropdown {
+          border-left: 1px solid rgba(11,16,18,0.06);
+        }
+        @media (max-width: 1024px) {
+          .search-dropdown button {
+            padding: 14px 0 !important;
+          }
         }
         @media (max-width: 768px) {
           section > div > div:last-child {

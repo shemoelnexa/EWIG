@@ -662,6 +662,20 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+/* ─── Property Search Bar (mobile) ─── */
+@media (max-width: 900px) {
+  .search-filters-row {
+    flex-direction: column !important;
+  }
+  .search-filters-row > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(11,16,18,0.06);
+  }
+  .search-filters-row > div:last-child {
+    border-bottom: none;
+  }
+}
+
 /* ─── Responsive overrides ─── */
 @media (max-width: 768px) {
   .section > div {

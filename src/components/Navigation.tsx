@@ -2,12 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const menuLinks = [
+const primaryLinks = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
   { label: "Properties", href: "#properties" },
-  { label: "Services", href: "#services" },
-  { label: "Blog", href: "#blog" },
+  { label: "About Us", href: "#about" },
+  { label: "Tenant Benefits", href: "#tenant-benefits" },
+  { label: "ESG", href: "#esg" },
+];
+
+const secondaryLinks = [
+  { label: "Quality Policy", href: "#quality-policy" },
+  { label: "Blogs", href: "#blogs" },
   { label: "Careers", href: "#careers" },
   { label: "Contact", href: "#contact" },
 ];
@@ -19,6 +24,12 @@ export default function Navigation() {
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
 
   // Hide nav when footer is in view
   useEffect(() => {
@@ -40,52 +51,98 @@ export default function Navigation() {
     <>
       {/* Fullscreen Menu Overlay */}
       <div className={`menu-overlay${isOpen ? " is-open" : ""}`}>
-        <div className="flex flex-col items-center justify-center">
-          <nav className="menu-links">
-            {menuLinks.map((link) => (
+        {/* Close button */}
+        <button
+          className="menu-close"
+          onClick={closeMenu}
+          aria-label="Close menu"
+          style={{
+            position: "absolute",
+            top: "clamp(20px, 4vw, 40px)",
+            right: "clamp(20px, 4vw, 40px)",
+            zIndex: 10,
+            width: "48px",
+            height: "48px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: "50%",
+            cursor: "pointer",
+            opacity: isOpen ? 1 : 0,
+            transition: "opacity 0.4s ease 0.3s, border-color 0.3s ease",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(206,224,2,0.4)")}
+          onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M1 1L17 17M17 1L1 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <div className="menu-content">
+          {/* Primary links — large */}
+          <nav className="menu-links-primary">
+            {primaryLinks.map((link, i) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="menu-link"
+                className="menu-link-primary"
                 onClick={closeMenu}
+                style={{ transitionDelay: isOpen ? `${0.1 + i * 0.05}s` : "0s" }}
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
+          {/* Divider */}
+          <div
+            className="menu-divider"
+            style={{
+              width: "60px",
+              height: "1px",
+              background: "rgba(255,255,255,0.12)",
+              margin: "clamp(20px, 3vw, 36px) auto",
+              opacity: isOpen ? 1 : 0,
+              transition: "opacity 0.5s ease 0.4s",
+            }}
+          />
+
+          {/* Secondary links — small, inline */}
+          <div className="menu-links-secondary">
+            {secondaryLinks.map((link, i) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="menu-link-secondary"
+                onClick={closeMenu}
+                style={{ transitionDelay: isOpen ? `${0.35 + i * 0.05}s` : "0s" }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
           {/* Contact Info */}
           <div
-            className="flex flex-col items-center gap-[0.6rem] mt-[4rem]"
-            style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.6s ease 0.5s" }}
+            className="menu-contact"
+            style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.6s ease 0.55s" }}
           >
-            <a
-              href="tel:+97122072200"
-              className="label-sm text-white"
-              style={{ opacity: 0.5, textDecoration: "none" }}
-            >
-              +971 2 207 2200
-            </a>
-            <a
-              href="mailto:ewig@ccsupport.ae"
-              className="label-sm text-white"
-              style={{ opacity: 0.5, textDecoration: "none" }}
-            >
-              ewig@ccsupport.ae
-            </a>
+            <a href="tel:+97122072200">+971 2 207 2200</a>
+            <a href="mailto:ewig@ccsupport.ae">ewig@ccsupport.ae</a>
           </div>
 
           {/* Social Icons */}
           <div
-            className="flex items-center gap-[2rem] mt-[2.5rem]"
-            style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.6s ease 0.6s" }}
+            className="menu-socials"
+            style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.6s ease 0.65s" }}
           >
             {["Instagram", "LinkedIn", "Facebook", "YouTube"].map((platform) => (
               <a
                 key={platform}
                 href="#"
-                className="label-sm text-white"
-                style={{ opacity: 0.4, textDecoration: "none", transition: "opacity 0.3s ease" }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
               >
@@ -125,22 +182,17 @@ export default function Navigation() {
         </div>
 
         {/* Burger */}
-        <div
+        <button
           className={`nav-burger${isOpen ? " is-open" : ""}`}
           onClick={toggleMenu}
-          role="button"
           aria-label="Toggle menu"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") toggleMenu();
-          }}
         >
           <div className="burger-lines">
             <span />
             <span />
             <span />
           </div>
-        </div>
+        </button>
       </div>
     </>
   );

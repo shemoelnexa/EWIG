@@ -7,21 +7,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const menuLinks = [
-  { label: "About", href: "/about" },
+  { label: "Home", href: "/" },
   { label: "Properties", href: "/properties" },
-  { label: "Services", href: "/services" },
-  { label: "Careers", href: "/careers" },
-  { label: "Contact", href: "/contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Tenant Benefits", href: "/tenant-benefits" },
+  { label: "ESG", href: "/esg" },
 ];
 
 const secondaryLeft = [
-  { label: "Blog", href: "/blog" },
   { label: "Quality Policy", href: "/quality-policy" },
+  { label: "Blogs", href: "/blogs" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const secondaryRight = [
   { label: "+971 2 207 2200", href: "tel:+97122072200" },
   { label: "ewig@ccsupport.ae", href: "mailto:ewig@ccsupport.ae" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socials = ["Instagram", "YouTube", "LinkedIn", "Facebook"];

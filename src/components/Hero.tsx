@@ -145,26 +145,26 @@ export default function Hero() {
       {/* ── Top header bar ── */}
       <div
         ref={topBarRef}
+        className="hero-top-bar"
         style={{
           position: "absolute",
           top: 0, left: 0, right: 0,
           zIndex: 10,
-          padding: "28px 40px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        {/* Left spacer */}
-        <div style={{ width: "160px" }} />
+        {/* Left spacer — hidden on mobile */}
+        <div className="hero-spacer" />
 
         {/* Center: Logo */}
         <a href="/" style={{ display: "flex", alignItems: "center" }}>
           <img
             src="/images/logo.png"
             alt="East & West International Group"
+            className="hero-logo"
             style={{
-              height: "40px",
               objectFit: "contain",
               filter: "brightness(0) invert(1)",
             }}
@@ -174,36 +174,29 @@ export default function Hero() {
         {/* Right: CTA */}
         <a
           href="#contact"
-          className="link-underline"
+          className="link-underline hero-cta"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
             color: "white",
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
-            gap: "8px",
           }}
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Get in Touch
+          <span className="hero-cta-text">Get in Touch</span>
         </a>
       </div>
 
       {/* ── Content: heading + search bar ── */}
       <div
         ref={contentRef}
+        className="hero-content"
         style={{
           position: "absolute",
-          bottom: "136px",
           left: 0, right: 0,
           zIndex: 5,
-          padding: "0 60px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -228,7 +221,7 @@ export default function Hero() {
           />
         </h1>
 
-        <div ref={searchBarRef} style={{ width: "100%", maxWidth: "1100px", opacity: 0 }}>
+        <div ref={searchBarRef} style={{ width: "100%", maxWidth: "1100px", opacity: 0, position: "relative", zIndex: 1100 }}>
           <PropertySearch variant="dark" />
         </div>
       </div>

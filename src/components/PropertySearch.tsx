@@ -119,7 +119,7 @@ function SearchDropdown({
             border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(11,16,18,0.1)",
             borderTop: "none",
             borderRadius: "0 0 3px 3px",
-            zIndex: 50,
+            zIndex: 1100,
             maxHeight: "220px",
             overflowY: "auto",
             boxShadow: isDark ? "0 12px 40px rgba(0,0,0,0.4)" : "0 12px 32px rgba(11,16,18,0.08)",

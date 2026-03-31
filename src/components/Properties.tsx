@@ -243,7 +243,7 @@ export default function Properties() {
         </div>
 
         {/* Search Bar */}
-        <div ref={searchRef} style={{ marginBottom: "48px", opacity: 0 }}>
+        <div ref={searchRef} style={{ marginBottom: "48px", opacity: 0, position: "relative", zIndex: 1100 }}>
           <PropertySearch variant="light" />
         </div>
 

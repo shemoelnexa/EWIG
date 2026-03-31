@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RotatingSquare, CircleOutline, CrossMark } from "@/components/Graphics";
+import PropertySearch from "@/components/PropertySearch";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +30,7 @@ export default function Hero() {
   const imageRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
-  // scroll indicator removed — bottom nav serves as visual anchor
+  const searchBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -79,7 +80,13 @@ export default function Hero() {
         });
       }
 
-      // Scroll indicator removed
+      // Search bar fade in
+      if (searchBarRef.current) {
+        gsap.set(searchBarRef.current, { opacity: 0, y: 25 });
+        gsap.to(searchBarRef.current, {
+          opacity: 1, y: 0, duration: 1, ease: "power4.out", delay: 2.8,
+        });
+      }
 
       // Parallax departure on scroll
       if (contentRef.current) {
@@ -188,16 +195,18 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* ── Content: heading at bottom ── */}
+      {/* ── Content: heading + search bar ── */}
       <div
         ref={contentRef}
         style={{
           position: "absolute",
-          bottom: "140px",
+          bottom: "100px",
           left: 0, right: 0,
           zIndex: 5,
           padding: "0 60px",
-          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <h1
@@ -208,8 +217,9 @@ export default function Hero() {
             lineHeight: 1.15,
             color: "white",
             maxWidth: "900px",
-            margin: "0 auto",
+            textAlign: "center",
             letterSpacing: "-0.01em",
+            marginBottom: "40px",
           }}
         >
           <SplitWords
@@ -217,9 +227,11 @@ export default function Hero() {
             wordClass="hero-main-word"
           />
         </h1>
-      </div>
 
-      {/* Scroll indicator — hidden, bottom nav serves as anchor */}
+        <div ref={searchBarRef} style={{ width: "100%", maxWidth: "1100px", opacity: 0 }}>
+          <PropertySearch variant="dark" />
+        </div>
+      </div>
     </section>
   );
 }

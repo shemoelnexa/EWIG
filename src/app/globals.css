@@ -662,7 +662,21 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* ─── Property Search Bar (mobile) ─── */
+/* ─── Property Search Bar ─── */
+.search-option:hover {
+  background: rgba(206, 224, 2, 0.08) !important;
+  color: var(--color-black) !important;
+}
+
+.search-clear-btn:hover {
+  border-color: var(--color-black) !important;
+}
+
+.search-submit-btn:hover {
+  background: var(--color-accent-dark) !important;
+  border-color: var(--color-accent-dark) !important;
+}
+
 @media (max-width: 900px) {
   .search-filters-row {
     flex-direction: column !important;

@@ -200,7 +200,7 @@ export default function Hero() {
         ref={contentRef}
         style={{
           position: "absolute",
-          bottom: "100px",
+          bottom: "136px",
           left: 0, right: 0,
           zIndex: 5,
           padding: "0 60px",

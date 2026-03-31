@@ -679,7 +679,7 @@ body {
 
 @media (max-width: 900px) {
   .search-filters-row {
-    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
   }
   .search-filters-row > div {
     border-right: none !important;

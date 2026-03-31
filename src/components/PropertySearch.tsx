@@ -46,7 +46,7 @@ function SearchDropdown({
   const isDark = variant === "dark";
 
   return (
-    <div ref={ref} className="search-dropdown" style={{ position: "relative", flex: 1 }}>
+    <div ref={ref} className="search-dropdown" style={{ position: "relative" }}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -239,20 +239,26 @@ export default function PropertySearch({
       }}
     >
       <div style={{ borderBottom: `1px solid ${dc}` }}>
-        <div className="search-filters-row" style={{ display: "flex" }}>
-          <div style={{ flex: 1, padding: "0 20px", borderRight: `1px solid ${dc}` }}>
+        <div
+          className="search-filters-row"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5, 1fr)",
+          }}
+        >
+          <div style={{ padding: "0 20px", borderRight: `1px solid ${dc}` }}>
             <SearchDropdown icon={<LocationIcon />} label="Location" placeholder="Where do you want to?" options={locations} value={location} onChange={setLocation} variant={variant} />
           </div>
-          <div style={{ flex: 1, padding: "0 20px", borderRight: `1px solid ${dc}` }}>
+          <div style={{ padding: "0 20px", borderRight: `1px solid ${dc}` }}>
             <SearchDropdown icon={<CategoryIcon />} label="Category" placeholder="Choose Category" options={categories} value={category} onChange={setCategory} variant={variant} />
           </div>
-          <div style={{ flex: 1, padding: "0 20px", borderRight: `1px solid ${dc}` }}>
+          <div style={{ padding: "0 20px", borderRight: `1px solid ${dc}` }}>
             <SearchDropdown icon={<PropertyIcon />} label="Property Type" placeholder="Choose Property Type?" options={propertyTypes} value={propertyType} onChange={setPropertyType} variant={variant} />
           </div>
-          <div style={{ flex: 1, padding: "0 20px", borderRight: `1px solid ${dc}` }}>
+          <div style={{ padding: "0 20px", borderRight: `1px solid ${dc}` }}>
             <SearchDropdown icon={<BedroomIcon />} label="Bedroom" placeholder="Choose Room Type" options={bedrooms} value={bedroom} onChange={setBedroom} variant={variant} />
           </div>
-          <div style={{ flex: 1, padding: "0 20px" }}>
+          <div style={{ padding: "0 20px" }}>
             <SearchDropdown icon={<PriceIcon />} label="Price Range (AED)" placeholder="Choose price range" options={priceRanges} value={priceRange} onChange={setPriceRange} variant={variant} />
           </div>
         </div>
